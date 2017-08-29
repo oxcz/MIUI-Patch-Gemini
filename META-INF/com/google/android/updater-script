@@ -1,0 +1,106 @@
+mount("ext4", "EMMC", "/dev/block/bootdevice/by-name/cust", "/cust", "max_batch_time=0,commit=1,data=ordered,barrier=1,errors=panic,nodelalloc");
+delete_recursive("/cust/app/customized");
+package_extract_dir("cust", "/cust");
+set_metadata_recursive("/cust", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+package_extract_file("META-INF/com/miui/miui_update", "/cache/miui_update");
+set_metadata("/cache/miui_update", "uid", 0, "gid", 0, "mode", 0555, "capabilities", 0x0);
+run_program("/cache/miui_update");
+delete("/cache/miui_update");
+
+mount("ext4", "EMMC", "/dev/block/bootdevice/by-name/system", "/system", "max_batch_time=0,commit=1,data=ordered,barrier=1,errors=panic,nodelalloc");
+
+delete_recursive("/system/app");
+delete_recursive("/system/data-app");
+delete_recursive("/system/framework");
+delete_recursive("/system/priv-app");
+delete_recursive("/system/tts");
+delete_recursive("/system/vendor/app");
+delete_recursive("/system/vendor/framework");
+
+delete("/system/lib/libmresearch.so");
+delete("/system/lib64/libttscompat.so");
+delete("/system/lib64/libttspico.so");
+delete("/system/lib64/libpatcher_jni.so");
+delete("/system/lib64/libmtk_serialnum.so");
+delete("/system/lib64/libxmpass_sdk_patcher.so");
+delete("/system/lib64/xmpass_libweibosdkcore.so");
+
+delete("/system/bin/install-recovery.sh");
+delete("/system/etc/recovery-resource.dat");
+delete("/system/recovery-from-boot.p");
+
+package_extract_dir("system", "/system");
+
+# ---- Create symlinks ----
+ui_print("Creating symlinks...");
+symlink("/data/miui/miuisdk.apk", "/system/framework/miuisdk.jar");
+symlink("/data/miui/miuisystem.apk", "/system/framework/miuisystem.jar");
+symlink("/system/lib64/libappfuse_jni.so", "/system/priv-app/MtpDocumentsProvider/lib/arm64/libappfuse_jni.so");
+symlink("/system/lib64/libdefcontainer_jni.so", "/system/priv-app/DefaultContainerService/lib/arm64/libdefcontainer_jni.so");
+symlink("/system/lib64/libdiag_jni.so", "/system/app/Cit/lib/arm64/libdiag_jni.so");
+symlink("/system/lib64/libgenius_blur.so", "/system/app/FileExplorer/lib/arm64/libgenius_blur.so");
+symlink("/system/lib64/libhw_instanttrans.so", "/system/priv-app/MiuiScanner/lib/arm64/libhw_instanttrans.so");
+symlink("/system/lib64/libhwocr_cntools_shared.so", "/system/priv-app/MiuiScanner/lib/arm64/libhwocr_cntools_shared.so");
+symlink("/system/lib64/libjni_pacprocessor.so", "/system/app/PacProcessor/lib/arm64/libjni_pacprocessor.so");
+symlink("/system/lib64/libklobugreport_jni.so", "/system/app/klobugreport/lib/arm64/libklobugreport_jni.so");
+symlink("/system/lib64/libmiuiclassproxy.so", "/system/app/miui/lib/arm64/libmiuiclassproxy.so");
+symlink("/system/lib64/libmiuidiffpatcher.so", "/system/app/miui/lib/arm64/libmiuidiffpatcher.so");
+symlink("/system/lib64/libmiuiimageutilities.so", "/system/app/miui/lib/arm64/libmiuiimageutilities.so");
+symlink("/system/lib64/libmiuinative.so", "/system/app/miui/lib/arm64/libmiuinative.so");
+symlink("/system/lib64/libMiuiScreenRecord.so", "/system/app/MiuiScreenRecorder/lib/arm64/libMiuiScreenRecord.so");
+symlink("/system/lib64/libmiupdate.so", "/system/app/Calculator/lib/arm64/libmiupdate.so");
+symlink("/system/lib64/libmivrnative.so", "/system/priv-app/MiVRFramework/lib/arm64/libmivrnative.so");
+symlink("/system/lib64/libnfc_nci_jni.so", "/system/app/NfcNci/lib/arm64/libnfc_nci_jni.so");
+symlink("/system/lib64/libpowerkeeper_jni.so", "/system/app/PowerKeeper/lib/arm64/libpowerkeeper_jni.so");
+symlink("/system/lib64/libprintspooler_jni.so", "/system/app/PrintSpooler/lib/arm64/libprintspooler_jni.so");
+symlink("/system/lib64/libQuadrangleRecognizer.so", "/system/priv-app/MiuiScanner/lib/arm64/libQuadrangleRecognizer.so");
+symlink("/system/lib64/libsgmain.so", "/system/priv-app/MiuiScanner/lib/arm64/libsgmain.so");
+symlink("/system/lib64/libtasft_jni.so", "/system/app/Cit/lib/arm64/libtasft_jni.so");
+symlink("/system/lib64/libtbdecode.so", "/system/priv-app/MiuiScanner/lib/arm64/libtbdecode.so");
+symlink("/system/lib64/libuptsmaddon.so", "/system/app/TSMClient/lib/arm64/libuptsmaddon.so");
+symlink("/system/lib64/libwenba.so", "/system/priv-app/MiuiScanner/lib/arm64/libwenba.so");
+symlink("/system/lib/libbluetooth_jni.so", "/system/app/Bluetooth/lib/arm/libbluetooth_jni.so");
+symlink("/system/lib/libdce-1.1.15-mfr.so", "/system/priv-app/CleanMaster/lib/arm/libdce-1.1.15-mfr.so");
+symlink("/system/lib/libgifimage.so", "/system/app/HybridPlatform/lib/arm/libgifimage.so");
+symlink("/system/lib/libimagepipeline.so", "/system/app/HybridPlatform/lib/arm/libimagepipeline.so");
+symlink("/system/lib/libImageSearchAPI.so", "/system/priv-app/CleanMaster/lib/arm/libImageSearchAPI.so");
+symlink("/system/lib/libj2v8.so", "/system/app/HybridPlatform/lib/arm/libj2v8.so");
+symlink("/system/lib/libkcmutilex.so", "/system/priv-app/CleanMaster/lib/arm/libkcmutilex.so");
+symlink("/system/lib/libkcmutil.so", "/system/priv-app/CleanMaster/lib/arm/libkcmutil.so");
+symlink("/system/lib/lib_miui_arch_indicate.so", "/system/priv-app/QuickSearchBox/lib/arm/lib_miui_arch_indicate.so");
+symlink("/system/lib/libpl_droidsonroids_gif.so", "/system/priv-app/QuickSearchBox/lib/arm/libpl_droidsonroids_gif.so");
+symlink("/system/lib/libsic_helper.so", "/system/priv-app/CleanMaster/lib/arm/libsic_helper.so");
+symlink("/system/lib/libspaces_jni.so", "/system/priv-app/SpacesManagerService/lib/arm/libspaces_jni.so");
+symlink("/system/lib/libTmsdk-2.0.10-mfr.so", "/system/priv-app/CleanMaster/lib/arm/libTmsdk-2.0.10-mfr.so");
+symlink("/system/vendor/lib64/libimscamera_jni.so", "/system/vendor/app/ims/lib/arm64/libimscamera_jni.so");
+symlink("/system/vendor/lib64/libimsmedia_jni.so", "/system/vendor/app/ims/lib/arm64/libimsmedia_jni.so");
+
+# ---- Set Permissions ----
+ui_print("Setting Permissions...");
+set_metadata_recursive("/system/app", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_metadata_recursive("/system/framework", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_metadata_recursive("/system/priv-app", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_metadata_recursive("/system/vendor/app", "uid", 0, "gid", 2000, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_metadata_recursive("/system/vendor/framework", "uid", 0, "gid", 2000, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_metadata("/system/vendor/app/CABLService/CABLService.apk", "uid", 0, "gid", 0, "mode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_metadata("/system/vendor/app/colorservice/colorservice.apk", "uid", 0, "gid", 0, "mode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_metadata("/system/vendor/app/ims/ims.apk", "uid", 0, "gid", 0, "mode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_metadata("/system/vendor/app/imssettings/imssettings.apk", "uid", 0, "gid", 0, "mode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_metadata("/system/vendor/app/SVIService/SVIService.apk", "uid", 0, "gid", 0, "mode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+
+ui_print("Extracting boot image...");
+package_extract_file("boot.img", "/dev/block/bootdevice/by-name/boot"); 
+
+unmount("/cust");
+unmount("/system");
+
+# ---- Install supersu ----
+package_extract_dir("supersu", "/tmp/supersu");
+run_program("/sbin/busybox", "unzip", "/tmp/supersu/SR1-SuperSU-v2.82.zip", "META-INF/com/google/android/*", "-d", "/tmp/supersu");
+run_program("/sbin/busybox", "sh", "/tmp/supersu/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/supersu/SR1-SuperSU-v2.82.zip");
+
+# ---- Wipe cache & dalvik-cache ----
+delete_recursive("/cache");
+delete_recursive("/data/dalvik-cache");
+ui_print("Ready to reboot!");
+set_progress(1.000000);
