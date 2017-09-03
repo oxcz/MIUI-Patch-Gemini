@@ -6,5 +6,6 @@
 - 理论上去广告APK兼容Android N以上版本的MIUI系统（版本号一致），你可以直接替换。
 - services.jar、boot.img不通用，请勿尝试，否则你的设备将无法启动。
 ## 联系作者
+- 出于非盈利性目的你可随意使用本项目提供的去广告APK而无须征得作者同意，但应当注明作者并附上本项目的github链接。
 - 酷安网 @蓝色星期五
 - [![](http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_02.png)](http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=8JmUlZGTnJ_FlLCBgd6Tn50)
